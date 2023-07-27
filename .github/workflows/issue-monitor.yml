@@ -34,6 +34,6 @@ jobs:
         git diff
         git config --local user.email "action@github.com"
         git config --local user.name "codinian"
-        git add -u
+        git add --all
         git commit -am "Update generated file" || exit 0
         git push

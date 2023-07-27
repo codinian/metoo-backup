@@ -31,9 +31,12 @@ jobs:
         python src/main.py --url $ISSUE_BODY --filename $ISSUE_TITLE --cookies $HOME/cookies.json
     - name: Commit and push if it changed
       run: |
-        git checkout -b backup
         git config --local user.name github-actions[bot]
         git config --local user.email github-actions[bot]@users.noreply.github.com
         git add --all
         git commit -am "Update generated file" || exit 0
-        git push
+    - name: Push to backup branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: backup

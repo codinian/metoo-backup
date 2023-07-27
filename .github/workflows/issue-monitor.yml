@@ -25,8 +25,10 @@ jobs:
       env:
         ISSUE_TITLE: ${{ github.event.issue.title }}
         ISSUE_BODY: ${{ github.event.issue.body }}
+        COOKIES: ${{ secrets.COOKIES }}
       run: |
-        python src/main.py --url $ISSUE_BODY --filename $ISSUE_TITLE
+        echo $COOKIES > $HOME/cookies.json
+        python src/main.py --url $ISSUE_BODY --filename $ISSUE_TITLE --cookies $HOME/cookies.json
     - name: Commit and push if it changed
       run: |
         git diff
